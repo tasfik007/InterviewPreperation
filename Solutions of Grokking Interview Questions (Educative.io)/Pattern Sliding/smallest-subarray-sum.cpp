@@ -28,19 +28,19 @@ int smallestSubArraySum2(vector<int> arr, int target)
 {
     int n = arr.size();
     int windowStart = 0;
-    int sum = 0;
+    int windowSum = 0;
     int subArraySize = -1;
     int minSize = n + 1;
     for (int windowEnd = 0; windowEnd < n; windowEnd++)
     {
-        sum += arr[windowEnd];
-        if (sum >= target)
+        windowSum += arr[windowEnd];
+        if (windowSum >= target)
         {
             subArraySize = windowEnd - windowStart + 1;
             minSize = min(subArraySize, minSize);
-            while (sum >= target and windowStart <= windowEnd)
+            while (windowSum >= target and windowStart <= windowEnd)
             {
-                sum -= arr[windowStart++];
+                windowSum -= arr[windowStart++];
             }
         }
     }
