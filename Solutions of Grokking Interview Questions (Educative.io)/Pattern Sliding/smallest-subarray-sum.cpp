@@ -23,12 +23,35 @@ int smallestSubArraySum(vector<int> arr, int target)
     }
     return -1;
 }
+// sliding window | T -> O(n)
+int smallestSubArraySum2(vector<int> arr, int target)
+{
+    int n = arr.size();
+    int windowStart = 0;
+    int sum = 0;
+    int subArraySize = -1;
+    int minSize = n + 1;
+    for (int windowEnd = 0; windowEnd < n; windowEnd++)
+    {
+        sum += arr[windowEnd];
+        if (sum >= target)
+        {
+            subArraySize = windowEnd - windowStart + 1;
+            minSize = min(subArraySize, minSize);
+            while (sum >= target and windowStart <= windowEnd)
+            {
+                sum -= arr[windowStart++];
+            }
+        }
+    }
+    return minSize;
+}
 
 int main()
 {
     vector<int> arr{3, 4, 1, 1, 6};
     int s = 8;
-    int ans = smallestSubArraySum(arr, s);
+    int ans = smallestSubArraySum2(arr, s);
     cout << ans << endl;
 
     return 0;
